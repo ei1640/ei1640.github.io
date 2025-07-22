@@ -26,6 +26,22 @@
     .bingo-cell.marked {
       background-color: #ffeb3b; /* 薄緑系、自由に変更OK */
     }
+
+    .bingo-cell.highlight {
+    border: 3px solid red;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0% { background-color: #fff; }
+    50% { background-color: #ffcccc; }
+    100% { background-color: #fff; }
+  }
+  .bingo-cell.highlight.marked {
+  background-color: #90ee90 !important;
+  animation: none;
+  border: 3px solid darkgreen;
+}
   </style>
 </head>
 <body>
@@ -43,6 +59,7 @@
     <!-- JSでチェックボックスを自動生成 -->
   </fieldset>
   <button id="generate-btn">再生成</button>
+  <button id="random-pick-btn">ランダムに1つ選ぶ</button>
 
   <div id="bingo-card" class="bingo-grid"></div>
 

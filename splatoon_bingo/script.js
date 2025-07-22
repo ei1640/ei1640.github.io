@@ -76,4 +76,26 @@ window.onload = function () {
         bingoCard.appendChild(cell);
       }
     });
+
+    const randomPickBtn = document.getElementById("random-pick-btn");
+
+randomPickBtn.addEventListener("click", () => {
+  const allCells = document.querySelectorAll(".bingo-cell:not(.free)");
+  const cellsArray = Array.from(allCells);
+
+  // すでにハイライトされているものをリセット
+  cellsArray.forEach(cell => cell.classList.remove("highlight"));
+
+  // 空なら中止
+  if (cellsArray.length === 0) {
+    alert("ビンゴカードがまだ生成されていません。");
+    return;
+  }
+
+  // ランダムに1つ選んでハイライト
+  const randomIndex = Math.floor(Math.random() * cellsArray.length);
+  const chosenCell = cellsArray[randomIndex];
+  chosenCell.classList.add("highlight");
+});
+
   };
