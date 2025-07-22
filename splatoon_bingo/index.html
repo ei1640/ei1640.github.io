@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <title>スプラ3ブキビンゴ</title>
+  <style>
+    .bingo-grid {
+      display: grid;
+      gap: 5px;
+      margin-top: 20px;
+    }
+  
+    .bingo-cell {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+  
+    .free {
+      background-color: #ffeb3b;
+    }
+
+    .bingo-cell.marked {
+      background-color: #ffeb3b; /* 薄緑系、自由に変更OK */
+    }
+  </style>
+</head>
+<body>
+  <h1>スプラトゥーン3 ブキビンゴ</h1>
+<label for="size">サイズ選択：</label>
+<select id="size">
+  <option value="3">3x3</option>
+  <option value="4">4x4</option>
+  <option value="5" selected>5x5</option>
+  <option value="6">6x6</option>
+</select>
+
+<fieldset id="category-group" style="margin-top:20px;">
+    <legend>カテゴリを選択（複数可）</legend>
+    <!-- JSでチェックボックスを自動生成 -->
+  </fieldset>
+  <button id="generate-btn">再生成</button>
+
+  <div id="bingo-card" class="bingo-grid"></div>
+
+  <script src="weapons.js"></script>  <!-- 必ず先に -->
+  <script src="script.js"></script>   <!-- あとで -->
+
+</body>
+</html>

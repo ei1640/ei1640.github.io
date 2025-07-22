@@ -2,44 +2,41 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>スマブラビンゴ</title>
+  <title>ビンゴセレクション</title>
   <style>
     body {
-      text-align: center;
       font-family: sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 50px;
     }
-    table {
-      border-collapse: collapse;
-      margin: 20px auto;
+    h1 {
+      font-size: 2em;
+      margin-bottom: 40px;
     }
-    td {
-      border: 1px solid #000;
-      width: 80px;
-      height: 80px;
-      font-size: 12px;
-      padding: 5px;
-      cursor: pointer;
-      vertical-align: middle;
-      user-select: none;
+    .link-box {
+      display: inline-block;
+      margin: 20px;
+      padding: 30px 50px;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, background-color 0.2s;
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2em;
     }
-    td.marked {
-      background-color: #ffd700;
+    .link-box:hover {
+      transform: scale(1.05);
+      background-color: #e0f7ff;
     }
   </style>
 </head>
 <body>
-  <h1>スマブラSPキャラクタービンゴ</h1>
-  <label for="size">サイズ選択：</label>
-  <select id="size">
-    <option value="3">3x3</option>
-    <option value="4">4x4</option>
-    <option value="5" selected>5x5</option>
-    <option value="6">6x6</option>
-  </select>
-  <button onclick="generateBingoCard()">再生成</button>
-  <table id="bingo"></table>
+  <h1>ビンゴを選んでください</h1>
 
-  <script src="characters.js"></script>
-  <script src="script.js"></script>
+  <a href="smash_bingo/index.html" class="link-box">🎮 スマブラSP キャラビンゴ</a>
+  <a href="splatoon_bingo/index.html" class="link-box">🦑 スプラトゥーン3 ブキビンゴ</a>
+
 </body>
 </html>
