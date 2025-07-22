@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>スマブラビンゴ</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    td {
+      border: 1px solid #000;
+      width: 80px;
+      height: 80px;
+      font-size: 12px;
+      padding: 5px;
+      cursor: pointer;
+      vertical-align: middle;
+      user-select: none;
+    }
+    td.marked {
+      background-color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <h1>スマブラSPキャラクタービンゴ</h1>
+  <label for="size">サイズ選択：</label>
+  <select id="size">
+    <option value="3">3x3</option>
+    <option value="4">4x4</option>
+    <option value="5" selected>5x5</option>
+    <option value="6">6x6</option>
+  </select>
+  <button onclick="generateBingoCard()">再生成</button>
+  <table id="bingo"></table>
+
+  <script src="characters.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
