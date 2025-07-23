@@ -1,21 +1,50 @@
 const rouletteBox = document.getElementById("roulette-box");
 const startBtn = document.getElementById("start-btn");
+const categoryGroup = document.getElementById("category-group");
 
-let intervalId = null;
+// ✅ カテゴリのチェックボックスを自動生成
+for (const category in weaponData) {
+  const label = document.createElement("label");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.value = category;
+  checkbox.checked = true; // デフォルトでON
+
+  label.appendChild(checkbox);
+  label.append(" " + category);
+  categoryGroup.appendChild(label);
+}
 
 startBtn.addEventListener("click", () => {
   startBtn.disabled = true;
 
-  // 🎯 1. 最後に止まる武器をランダムに決めておく
-  const finalWeapon = splatoonWeapons[Math.floor(Math.random() * splatoonWeapons.length)];
+  // ✅ 選ばれたカテゴリを取得
+  const selectedCategories = Array.from(
+    categoryGroup.querySelectorAll("input[type='checkbox']:checked")
+  ).map(cb => cb.value);
 
-  // 🎞️ 2. 見た目用にくるくる回す（ランダム表示）
-  intervalId = setInterval(() => {
-    const randomWeapon = splatoonWeapons[Math.floor(Math.random() * splatoonWeapons.length)];
-    rouletteBox.textContent = randomWeapon;
-  }, 100); // 表示速度
+  // ✅ 対象武器を集める
+  let availableWeapons = [];
+  selectedCategories.forEach(category => {
+    availableWeapons = availableWeapons.concat(weaponData[category]);
+  });
 
-  // ⏱️ 3. 一定時間後に決めたブキで止める
+  if (availableWeapons.length === 0) {
+    rouletteBox.textContent = "※カテゴリを選んでください";
+    startBtn.disabled = false;
+    return;
+  }
+
+  // ✅ 最終的に止まるブキをランダムに選ぶ
+  const finalWeapon = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
+
+  // 🎞️ くるくる表示（見た目用）
+  const intervalId = setInterval(() => {
+    const w = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
+    rouletteBox.textContent = w;
+  }, 100);
+
+  // ⏱️ 一定時間後に止める
   setTimeout(() => {
     clearInterval(intervalId);
     rouletteBox.textContent = `🎉 ${finalWeapon} 🎉`;
