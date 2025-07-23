@@ -3,7 +3,8 @@ window.onload = function () {
     const gridSizeInput = document.getElementById("grid-size");
     const generateBtn = document.getElementById("generate-btn");
     const bingoCard = document.getElementById("bingo-card");
-  
+    let alreadyAlerted = false; 
+
     // チェックボックス自動生成
     for (const category in weaponData) {
       const label = document.createElement("label");
@@ -28,6 +29,9 @@ window.onload = function () {
       const gridSize = parseInt(document.getElementById("size").value);
       const totalCells = gridSize * gridSize;
   
+      // 警告をリセット
+      alreadyAlerted = false;
+
       // 選択されたカテゴリ取得
       const selectedCategories = Array.from(
         categoryGroup.querySelectorAll("input[type='checkbox']:checked")
@@ -93,9 +97,27 @@ randomPickBtn.addEventListener("click", () => {
   }
 
   // ランダムに1つ選んでハイライト
-  const randomIndex = Math.floor(Math.random() * cellsArray.length);
-  const chosenCell = cellsArray[randomIndex];
-  chosenCell.classList.add("highlight");
-});
+  const randomPickBtn = document.getElementById("random-pick-btn");
 
-  };
+  randomPickBtn.addEventListener("click", () => {
+    const allCells = document.querySelectorAll(".bingo-cell:not(.free)");
+    const unmarkedCells = Array.from(allCells).filter(cell => !cell.classList.contains("marked"));
+  
+    // すでにハイライトされているものをリセット
+    allCells.forEach(cell => cell.classList.remove("highlight"));
+  
+  // ✅ すべてマーク済み → 最初の1回だけ警告
+    if (unmarkedCells.length === 0) {
+      if (!alreadyAlerted) {
+        alert("すべてのマスがチェック済みです！");
+        alreadyAlerted = true;
+      }
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * unmarkedCells.length);
+    const chosenCell = unmarkedCells[randomIndex];
+    chosenCell.classList.add("highlight");
+  });
+
+})};

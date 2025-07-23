@@ -1,51 +1,43 @@
-function generateBingoCard() {
-    const table = document.getElementById("bingo");
-    const size = parseInt(document.getElementById("size").value, 10);
-    table.innerHTML = ""; // 前回のカードをクリア
-  
+window.onload = function () {
+  const sizeSelect = document.getElementById("size");
+  const generateBtn = document.getElementById("generate-btn");
+  const bingoCard = document.getElementById("bingo-card");
+
+  function generateBingoCard() {
+    const size = parseInt(sizeSelect.value);
     const totalCells = size * size;
     const freeIndex = Math.floor(totalCells / 2);
-  
+
     if (smashCharacters.length < totalCells - 1) {
-      alert("キャラクターが足りません！");
+      alert("キャラが足りません！");
       return;
     }
-  
-    const shuffled = shuffleArray([...smashCharacters]);
-    let charIndex = 0;
-  
-    for (let row = 0; row < size; row++) {
-      const tr = document.createElement("tr");
-      for (let col = 0; col < size; col++) {
-        const cellIndex = row * size + col;
-        const td = document.createElement("td");
-  
-        if (cellIndex === freeIndex && size % 2 === 1) {
-          td.textContent = "FREE";
-          td.classList.add("marked");
-        } else {
-          td.textContent = shuffled[charIndex++];
-        }
-  
-        td.addEventListener("click", () => {
-          td.classList.toggle("marked");
-        });
-  
-        tr.appendChild(td);
+
+    const shuffled = [...smashCharacters].sort(() => Math.random() - 0.5);
+    let index = 0;
+
+    bingoCard.innerHTML = "";
+    bingoCard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+    for (let i = 0; i < totalCells; i++) {
+      const cell = document.createElement("div");
+      cell.className = "bingo-cell";
+
+      if (size % 2 === 1 && i === freeIndex) {
+        cell.textContent = "FREE";
+        cell.classList.add("free", "marked");
+      } else {
+        cell.textContent = shuffled[index++];
       }
-      table.appendChild(tr);
+
+      cell.addEventListener("click", () => {
+        cell.classList.toggle("marked");
+      });
+
+      bingoCard.appendChild(cell);
     }
   }
-  
-  // 配列をシャッフル
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-  
-  // 初回生成
+
+  generateBtn.addEventListener("click", generateBingoCard);
   generateBingoCard();
-  
+};

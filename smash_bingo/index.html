@@ -2,42 +2,77 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>スマブラビンゴ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スマブラSP キャラビンゴ</title>
   <style>
     body {
-      text-align: center;
       font-family: sans-serif;
+      text-align: center;
+      padding: 2vh 2vw;
+      margin: 0;
+      box-sizing: border-box;
     }
-    table {
-      border-collapse: collapse;
-      margin: 20px auto;
+
+    h1 {
+      font-size: clamp(16px, 5vw, 28px);
+      margin-bottom: 1em;
     }
-    td {
-      border: 1px solid #000;
-      width: 80px;
-      height: 80px;
-      font-size: 12px;
-      padding: 5px;
-      cursor: pointer;
-      vertical-align: middle;
+
+    select, button {
+      font-size: clamp(12px, 3vw, 18px);
+      padding: 0.4em 0.8em;
+      margin: 0.5em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .bingo-grid {
+      display: grid;
+      gap: 0.5vw;
+      margin: 1em auto;
+      justify-content: center;
+      max-width: 90vmin;
+      max-height: 90vmin;
+    }
+
+    .bingo-cell {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      font-weight: bold;
+      font-size: clamp(10px, 2vw, 18px);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      border-radius: 4px;
       user-select: none;
+      padding: 0.5em;
     }
-    td.marked {
-      background-color: #ffd700;
+
+    .bingo-cell.marked {
+      background-color: #90ee90;
+    }
+
+    .free {
+      background-color: #ffeb3b;
     }
   </style>
 </head>
 <body>
-  <h1>スマブラSPキャラクタービンゴ</h1>
-  <label for="size">サイズ選択：</label>
+  <h1>スマブラSP キャラビンゴ</h1>
+
+  <label for="size">サイズ：</label>
   <select id="size">
     <option value="3">3x3</option>
     <option value="4">4x4</option>
     <option value="5" selected>5x5</option>
     <option value="6">6x6</option>
   </select>
-  <button onclick="generateBingoCard()">再生成</button>
-  <table id="bingo"></table>
+
+  <button id="generate-btn">再生成</button>
+
+  <div id="bingo-card" class="bingo-grid"></div>
 
   <script src="characters.js"></script>
   <script src="script.js"></script>

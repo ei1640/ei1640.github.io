@@ -2,47 +2,93 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>スプラ3ブキビンゴ</title>
   <style>
-    .bingo-grid {
-      display: grid;
-      gap: 5px;
-      margin-top: 20px;
-    }
-  
-    .bingo-cell {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-      font-weight: bold;
-    }
-  
-    .free {
-      background-color: #ffeb3b;
-    }
+html, body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 1vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;
+}
 
-    .bingo-cell.marked {
-      background-color: #ffeb3b; /* 薄緑系、自由に変更OK */
-    }
+h1 {
+  font-size: clamp(16px, 4vw, 28px);
+  margin-bottom: 1em;
+}
 
-    .bingo-cell.highlight {
-    border: 3px solid red;
-    animation: blink 1s infinite;
-  }
+select, button {
+  font-size: clamp(12px, 3vw, 20px);
+  padding: 0.4em 0.8em;
+  margin: 0.5em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
 
-  @keyframes blink {
-    0% { background-color: #fff; }
-    50% { background-color: #ffcccc; }
-    100% { background-color: #fff; }
-  }
-  .bingo-cell.highlight.marked {
+fieldset {
+  margin: 1em 0;
+  font-size: clamp(12px, 2.5vw, 18px);
+  padding: 0.5em;
+  border: 1px solid #ddd;
+}
+
+label {
+  margin-right: 0.5em;
+  display: inline-block;
+}
+
+.bingo-grid {
+  display: grid;
+  gap: 0.5vw;
+  margin: 1em auto;
+  justify-content: center;
+  max-width: 90vmin;          /* 最大サイズは画面サイズに比例 */
+  max-height: 90vmin;
+}
+
+.bingo-cell {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  font-size: clamp(10px, 2vw, 18px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 4px;
+  user-select: none;
+  padding: 0.5em;
+}
+
+.bingo-cell.marked {
+  background-color: #90ee90;
+}
+
+.bingo-cell.highlight {
+  border: 3px solid red;
+  animation: blink 1s infinite;
+}
+
+.bingo-cell.highlight.marked {
   background-color: #90ee90 !important;
   animation: none;
   border: 3px solid darkgreen;
 }
-  </style>
+
+.free {
+  background-color: #ffeb3b;
+}
+
+@keyframes blink {
+  0% { background-color: #fff; }
+  50% { background-color: #ffcccc; }
+  100% { background-color: #fff; }
+}
+</style>
 </head>
 <body>
   <h1>スプラトゥーン3 ブキビンゴ</h1>
@@ -58,7 +104,7 @@
     <legend>カテゴリを選択（複数可）</legend>
     <!-- JSでチェックボックスを自動生成 -->
   </fieldset>
-  <button id="generate-btn">再生成</button>
+  <button id="generate-btn">生成</button>
   <button id="random-pick-btn">ランダムに1つ選ぶ</button>
 
   <div id="bingo-card" class="bingo-grid"></div>
