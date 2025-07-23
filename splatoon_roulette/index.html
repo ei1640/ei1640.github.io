@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>スプラ3 ブキルーレット</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+
+    h1 {
+      font-size: clamp(18px, 5vw, 32px);
+    }
+
+    #roulette-box {
+      font-size: clamp(24px, 7vw, 48px);
+      margin: 2em 0;
+      height: 2em;
+    }
+
+    button {
+      font-size: clamp(16px, 4vw, 24px);
+      padding: 0.5em 1em;
+      border: none;
+      background-color: #0099cc;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <h1>スプラ3 ブキルーレット</h1>
+  <div id="roulette-box">ブキ名がここに表示されます</div>
+  <button id="start-btn">スタート</button>
+
+  <script src="weapons.js"></script>
+  <script src="roulette.js"></script>
+</body>
+</html>
