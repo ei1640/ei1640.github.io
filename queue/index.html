@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>参加順番管理</title>
+<style>
+body{
+    background:#0a0a0a;
+    color:white;
+    font-family: "Arial Black", Impact, sans-serif;
+    text-align:center;
+}
+
+/* タイトル */
+
+h2{
+    font-size:40px;
+    letter-spacing:2px;
+    margin-bottom:20px;
+
+    color:white;
+
+    text-shadow:
+        0 0 10px red,
+        0 0 20px red;
+}
+
+/* リスト */
+
+ul{
+    list-style:none;
+    padding:0;
+    max-width:500px;
+    margin:auto;
+}
+
+/* プレイヤーパネル */
+
+li{
+
+    background:linear-gradient(
+        145deg,
+        #1a1a1a,
+        #111
+    );
+
+    border-left:6px solid red;
+
+    padding:12px;
+    margin:8px 0;
+
+    border-radius:6px;
+
+    box-shadow:
+        0 0 10px rgba(255,0,0,0.3);
+
+    font-size:20px;
+}
+
+/* 入力欄 */
+
+input[type="text"]{
+
+    padding:10px;
+    font-size:16px;
+
+    border:none;
+    border-radius:4px;
+
+    background:#222;
+    color:white;
+
+    outline:none;
+
+    margin-right:8px;
+}
+
+/* チェックボックス */
+
+label{
+    font-size:14px;
+}
+
+/* ボタン */
+
+button{
+
+    background:red;
+    color:white;
+
+    border:none;
+
+    padding:10px 18px;
+
+    font-size:16px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    margin:6px;
+
+    font-weight:bold;
+
+    transition:0.2s;
+}
+
+button:hover{
+
+    background:#ff3333;
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 0 10px red;
+}
+
+li:first-child{
+    border-left:6px solid gold;
+    box-shadow:0 0 15px gold;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>参加順番</h2>
+
+<ul id="queue"></ul>
+
+<input id="name" placeholder="名前">
+<label>
+<input type="checkbox" id="repeat">
+配信終了まで参加
+</label>
+
+<br><br>
+
+<button onclick="add()">追加</button>
+<button onclick="next()">次の人</button>
+
+<script>
+
+let queue = []
+
+function update(){
+  const list = document.getElementById("queue")
+  list.innerHTML=""
+
+  queue.forEach((p,i)=>{
+    const li=document.createElement("li")
+
+    const checkbox=document.createElement("input")
+    checkbox.type="checkbox"
+    checkbox.checked=p.repeat
+
+    checkbox.onchange=()=>{
+      p.repeat=checkbox.checked
+    }
+
+    li.append((i+1)+". "+p.name+" ")
+    li.append(checkbox)
+    li.append(" 周回")
+
+    list.appendChild(li)
+  })
+}
+
+function add(){
+
+  const name=document.getElementById("name").value
+  const repeat=document.getElementById("repeat").checked
+
+  if(!name) return
+
+  queue.push({
+    name:name,
+    repeat:repeat
+  })
+
+  document.getElementById("name").value=""
+  update()
+}
+
+function next(){
+
+  if(queue.length===0) return
+
+  const player=queue.shift()
+
+  if(player.repeat){
+    queue.push(player)
+  }
+
+  update()
+}
+
+update()
+
+</script>
+
+</body>
+</html>
