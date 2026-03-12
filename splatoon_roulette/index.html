@@ -5,27 +5,153 @@
   <title>スプラ3 ブキルーレット</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 2em; }
-    h1 { font-size: clamp(18px, 5vw, 32px); }
-    #roulette-box { font-size: clamp(24px, 7vw, 48px); margin: 2em 0; height: 2em; }
-    button { font-size: clamp(16px, 4vw, 24px); padding: 0.5em 1em; border: none; border-radius: 10px; background-color: #0099cc; color: white; cursor: pointer; }
-    button:disabled { background-color: #ccc; }
-    fieldset { margin: 1em auto; max-width: 400px; font-size: 1em; }
-    label { display: inline-block; margin: 0.3em 1em; }
-  </style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  text-align:center;
+
+  background:linear-gradient(135deg,#0b3d91,#0066cc,#ffd400);
+  color:white;
+
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+}
+
+#container{
+  width:min(95vw,800px);
+  padding:12px;
+  box-sizing:border-box;
+}
+
+h1{
+  font-size:clamp(20px,4vw,32px);
+  margin-bottom:10px;
+}
+
+fieldset{
+  margin:10px auto;
+  background:rgba(255,255,255,0.15);
+  border:none;
+  border-radius:10px;
+  padding:10px;
+  max-width:500px;
+}
+
+legend{
+  font-weight:bold;
+}
+
+#category-group{
+  margin-top:6px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:4px 8px;
+  font-size:12px;
+}
+
+label{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+}
+
+#roulette-box{
+
+  margin:30px auto;
+
+  font-weight:bold;
+
+  height:1.8em;
+  line-height:1.8em;
+
+  background:white;
+  color:#111;
+
+  border-radius:14px;
+  border:4px solid #ffd400;
+
+  width:min(90%,500px);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:0 6px 15px rgba(0,0,0,0.4);
+
+  font-size:clamp(20px,5vw,48px);
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+button{
+
+  font-size:clamp(16px,3vw,22px);
+
+  padding:10px 24px;
+
+  border:none;
+  border-radius:10px;
+
+  background:#ffd400;
+  color:#111;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.15s;
+}
+
+button:hover{
+  background:#ffea66;
+  transform:scale(1.05);
+}
+
+button:disabled{
+  background:#777;
+  color:#ccc;
+}
+
+.note{
+  margin-top:20px;
+  font-size:12px;
+  opacity:0.9;
+}
+</style>
 </head>
 <body>
-  <h1>スプラ3 ブキルーレット</h1>
 
-  <fieldset id="category-group">
-    <legend>カテゴリを選択（複数可）</legend>
-    <!-- チェックボックスは JS で自動生成 -->
-  </fieldset>
+<div id="container">
 
-  <div id="roulette-box">ブキ名がここに表示されます</div>
-  <button id="start-btn">スタート</button>
+<h1>スプラ3 ブキルーレット</h1>
 
-  <script src="weapons.js"></script>
-  <script src="roulette.js"></script>
+<fieldset>
+<legend>カテゴリを選択（複数可）</legend>
+<div id="category-group"></div>
+</fieldset>
+
+<div id="roulette-box">
+ブキ名がここに表示されます
+</div>
+
+<button id="start-btn">スタート</button>
+
+<div class="note">
+※プロモデラーMG、14式竹筒銃・甲、R-PEN/5Hなど、一部ブキ名称が省略されています。<br>
+亜種ブキありでルーレットする場合は、無印は無印として処理してください。
+</div>
+
+</div>
+
+<script src="weapons.js"></script>
+<script src="roulette.js"></script>
+
 </body>
 </html>

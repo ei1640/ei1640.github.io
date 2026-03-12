@@ -42,12 +42,32 @@ startBtn.addEventListener("click", () => {
   const intervalId = setInterval(() => {
     const w = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
     rouletteBox.textContent = w;
+    adjustFontSize();
   }, 100);
 
   // ⏱️ 一定時間後に止める
   setTimeout(() => {
     clearInterval(intervalId);
     rouletteBox.textContent = `🎉 ${finalWeapon} 🎉`;
+    adjustFontSize();
     startBtn.disabled = false;
   }, 3000);
+
 });
+
+function adjustFontSize() {
+
+  const box = document.getElementById("roulette-box");
+
+  let size = 48;
+
+  box.style.fontSize = size + "px";
+
+  while (box.scrollWidth > box.clientWidth && size > 14) {
+    size--;
+    box.style.fontSize = size + "px";
+  }
+
+}
+
+window.addEventListener("load", adjustFontSize);
