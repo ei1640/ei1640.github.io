@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>スプラトゥーン3 ブキビンゴ</title>
+
+<link rel="stylesheet" href="splat_style.css">
+
+</head>
+
+<body>
+
+<div id="container">
+
+<h1>スプラトゥーン3 ブキビンゴ</h1>
+
+<label>サイズ</label>
+
+<select id="size">
+<option value="3">3×3</option>
+<option value="4">4×4</option>
+<option value="5" selected>5×5</option>
+<option value="6">6×6</option>
+</select>
+
+<button id="generate-btn">生成</button>
+<button id="random-pick-btn">ランダムに1つ選ぶ</button>
+
+<details id="category-section">
+<summary>カテゴリを選択</summary>
+<div id="category-group"></div>
+</details>
+
+<div id="bingo-card" class="bingo-grid"></div>
+
+</div>
+
+
+<!-- データ -->
+<script src="weapons.js"></script>
+
+<!-- 共通エンジン -->
+<script src="bingo-engine.js"></script>
+
+<!-- スプラ用 -->
+<script src="splatoon-script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+html, body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 1vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;
+
+  background:#0a0a0a;
+  color:white;
+}
+
+/* タイトル */
+
+h1 {
+  font-size: clamp(18px, 4vw, 30px);
+  margin-bottom: 1em;
+  color:#ffd400;
+  text-shadow:2px 2px 0 #0048ff;
+}
+
+/* UI */
+
+select, button {
+  font-size: clamp(12px, 3vw, 20px);
+  padding: 0.4em 0.8em;
+  margin: 0.5em;
+  border-radius: 8px;
+  border:none;
+}
+
+/* ボタン */
+
+button{
+  background:#ffd400;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.15s;
+}
+
+button:hover{
+  background:#ffe75a;
+  transform:scale(1.05);
+}
+
+/* カテゴリ折りたたみ */
+
+#category-section{
+  margin:10px auto;
+  background:rgba(0,72,255,0.15);
+  border:2px solid #0048ff;
+  border-radius:8px;
+  padding:8px;
+  max-width:600px;
+}
+
+/* タイトル */
+
+#category-section summary{
+  cursor:pointer;
+  font-weight:bold;
+  font-size:16px;
+  color:#ffd400;
+}
+
+/* チェックボックス配置 */
+
+#category-group{
+  margin-top:6px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:4px 8px;
+
+  font-size:12px;
+}
+
+/* チェックボックス見た目 */
+
+#category-group label{
+  display:flex;
+  align-items:center;
+  gap:4px;
+
+  white-space:nowrap;
+}
+
+/* チェックボックス色 */
+
+#category-group input{
+  accent-color:#ffd400;
+}
+
+/* ビンゴグリッド */
+
+.bingo-grid {
+  display: grid;
+  gap: 0.6vw;
+  margin: 1em auto;
+  justify-content: center;
+  max-width: 90vmin;
+  max-height: 90vmin;
+}
+
+/* マス */
+
+.bingo-cell {
+  background:#111;
+  border:2px solid #0048ff;
+  color:#fff;
+
+  font-weight:bold;
+  font-size: clamp(10px, 2vw, 18px);
+
+  aspect-ratio: 1 / 1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+  user-select:none;
+  padding:0.5em;
+
+  transition:0.15s;
+}
+
+/* ホバー */
+
+.bingo-cell:hover{
+  transform:scale(1.05);
+}
+
+/* チェック済み */
+
+.bingo-cell.marked {
+  background:#ffd400;
+  color:#000;
+  border-color:#ffd400;
+}
+
+/* FREE */
+
+.free {
+  background:#0048ff;
+  color:white;
+}
+
+/* ランダム選択 */
+
+.bingo-cell.highlight {
+  border:3px solid #ffd400;
+  animation: blink 1s infinite;
+}
+
+.bingo-cell.highlight.marked {
+  background:#ffd400 !important;
+  color:#000;
+  animation:none;
+  border:3px solid #ffd400;
+}
+
+/* アニメーション */
+
+@keyframes blink {
+  0% { background:#111; }
+  50% { background:#0032b5; }
+  100% { background:#111; }
+}
+
+/* カテゴリ折りたたみ */
+
+#category-section{
+  max-width:600px;
+  margin:auto;
+  background:rgba(255,255,255,0.05);
+  border:2px solid #0048ff;
+  border-radius:10px;
+  padding:8px;
+}
+
+/* カテゴリ配置 */
+
+#category-group{
+  margin-top:6px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:4px 8px;
+
+  font-size:12px;
+}
