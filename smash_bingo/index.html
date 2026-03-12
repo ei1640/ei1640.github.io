@@ -57,10 +57,55 @@
     .free {
       background-color: #ffeb3b;
     }
+
+  .bingo-cell.highlight.marked{
+    background-color:#90ee90 !important;
+    animation:none;
+    border:2px solid green;
+  }
+
+    @keyframes blink{
+      0%{background:#fff;}
+      50%{background:#ffd0d0;}
+      100%{background:#fff;}
+    }
+
+    .bingo-cell.highlight{
+      border:3px solid red;
+      animation:blink 1s infinite;
+    }
+
+  @keyframes blink{
+    0%{background:#fff;}
+    50%{background:#ffd0d0;}
+    100%{background:#fff;}
+  }
+
+  #dlc-area{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin-top:10px;
+  }
+
+  #dlc-section{
+    margin-bottom:15px;
+  }
+
+  #dlc-section summary{
+    cursor:pointer;
+    font-weight:bold;
+    font-size:1.1em;
+  }
   </style>
 </head>
 <body>
   <h1>スマブラSP キャラビンゴ</h1>
+
+<details id="dlc-section">
+  <summary>DLCキャラ所持設定</summary>  
+  <div id="dlc-area"></div>
+</details>
 
   <label for="size">サイズ：</label>
   <select id="size">
@@ -71,6 +116,8 @@
   </select>
 
   <button id="generate-btn">再生成</button>
+
+  <button id="random-cell-btn">ランダム1マス</button>
 
   <div id="bingo-card" class="bingo-grid"></div>
 
