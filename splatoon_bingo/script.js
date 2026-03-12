@@ -1,123 +1,123 @@
 window.onload = function () {
-    const categoryGroup = document.getElementById("category-group");
-    const gridSizeInput = document.getElementById("grid-size");
-    const generateBtn = document.getElementById("generate-btn");
-    const bingoCard = document.getElementById("bingo-card");
-    let alreadyAlerted = false; 
 
-    // チェックボックス自動生成
-    for (const category in weaponData) {
-      const label = document.createElement("label");
-      label.style.marginRight = "10px";
-  
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.value = category;
-  
-      // デフォルトで「全ブキ」がチェックされている
-      if (category === "全ブキ") {
-        checkbox.checked = true;
-      }
-  
-      label.appendChild(checkbox);
-      label.append(" " + category);
-      categoryGroup.appendChild(label);
-    }
-  
-    // ビンゴカード生成処理
-    generateBtn.addEventListener("click", () => {
-      const gridSize = parseInt(document.getElementById("size").value);
-      const totalCells = gridSize * gridSize;
-  
-      // 警告をリセット
-      alreadyAlerted = false;
-
-      // 選択されたカテゴリ取得
-      const selectedCategories = Array.from(
-        categoryGroup.querySelectorAll("input[type='checkbox']:checked")
-      ).map(cb => cb.value);
-  
-      // 選択されたカテゴリの武器を統合して1つのリストに
-      let selectedWeapons = [];
-      selectedCategories.forEach(category => {
-        selectedWeapons = selectedWeapons.concat(weaponData[category]);
-      });
-  
-      // 重複削除
-      selectedWeapons = [...new Set(selectedWeapons)];
-  
-      // 抽選できる数が足りない場合
-      if (selectedWeapons.length < totalCells - (totalCells % 2 === 1 ? 1 : 0)) {
-        alert("選択されたカテゴリでは、十分な武器数がありません。");
-        return;
-      }
-  
-      // ランダムシャッフル
-      const shuffled = selectedWeapons.sort(() => Math.random() - 0.5);
-  
-      // ビンゴカード描画
-      bingoCard.innerHTML = "";
-      bingoCard.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-  
-      for (let i = 0; i < totalCells; i++) {
-        const cell = document.createElement("div");
-        cell.className = "bingo-cell";
-  
-        // 奇数グリッドで中央をFREEに
-        if (gridSize % 2 === 1 && i === Math.floor(totalCells / 2)) {
-          cell.textContent = "FREE";
-          cell.classList.add("free");
-        } else {
-          const weapon = shuffled.shift();
-          cell.textContent = weapon;
-        }
-        
-        cell.addEventListener("click", () => {
-            cell.classList.toggle("marked");
-        });
-          
-
-        bingoCard.appendChild(cell);
-      }
-    });
-
-    const randomPickBtn = document.getElementById("random-pick-btn");
-
-randomPickBtn.addEventListener("click", () => {
-  const allCells = document.querySelectorAll(".bingo-cell:not(.free)");
-  const cellsArray = Array.from(allCells);
-
-  // すでにハイライトされているものをリセット
-  cellsArray.forEach(cell => cell.classList.remove("highlight"));
-
-  // 空なら中止
-  if (cellsArray.length === 0) {
-    alert("ビンゴカードがまだ生成されていません。");
-    return;
-  }
-
-  // ランダムに1つ選んでハイライト
+  const categoryGroup = document.getElementById("category-group");
+  const generateBtn = document.getElementById("generate-btn");
+  const bingoCard = document.getElementById("bingo-card");
   const randomPickBtn = document.getElementById("random-pick-btn");
 
-  randomPickBtn.addEventListener("click", () => {
-    const allCells = document.querySelectorAll(".bingo-cell:not(.free)");
-    const unmarkedCells = Array.from(allCells).filter(cell => !cell.classList.contains("marked"));
-  
-    // すでにハイライトされているものをリセット
-    allCells.forEach(cell => cell.classList.remove("highlight"));
-  
-  // ✅ すべてマーク済み → 最初の1回だけ警告
-    if (unmarkedCells.length === 0) {
-      if (!alreadyAlerted) {
-        alert("すべてのマスがチェック済みです！");
-        alreadyAlerted = true;
-      }
+  let alreadyAlerted = false;
+
+  /* カテゴリチェックボックス生成 */
+
+  for (const category in weaponData) {
+
+    const label = document.createElement("label");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = category;
+
+    const saved = localStorage.getItem("splatoon_category_" + category);
+
+    if (saved === null) {
+      checkbox.checked = category === "全ブキ";
+    } else {
+      checkbox.checked = saved === "true";
+    }
+
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem("splatoon_category_" + category, checkbox.checked);
+    });
+
+    label.appendChild(checkbox);
+    label.append(" " + category);
+
+    categoryGroup.appendChild(label);
+  }
+
+
+  function generateBingoCard(){
+
+    const gridSize = parseInt(document.getElementById("size").value);
+    const totalCells = gridSize * gridSize;
+
+    alreadyAlerted = false;
+
+    const selectedCategories = Array.from(
+      categoryGroup.querySelectorAll("input:checked")
+    ).map(cb => cb.value);
+
+    let selectedWeapons = [];
+
+    selectedCategories.forEach(category => {
+      selectedWeapons = selectedWeapons.concat(weaponData[category]);
+    });
+
+    selectedWeapons = [...new Set(selectedWeapons)];
+
+    if (selectedWeapons.length < totalCells - (gridSize % 2 === 1 ? 1 : 0)) {
+      alert("選択されたカテゴリでは、十分な武器数がありません。");
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * unmarkedCells.length);
-    const chosenCell = unmarkedCells[randomIndex];
-    chosenCell.classList.add("highlight");
+    const shuffled = selectedWeapons.sort(() => Math.random() - 0.5);
+
+    bingoCard.innerHTML = "";
+    bingoCard.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+
+    for (let i = 0; i < totalCells; i++) {
+
+      const cell = document.createElement("div");
+      cell.className = "bingo-cell";
+
+      if (gridSize % 2 === 1 && i === Math.floor(totalCells / 2)) {
+
+        cell.textContent = "FREE";
+        cell.classList.add("free","marked");
+
+      } else {
+
+        cell.textContent = shuffled.shift();
+
+      }
+
+      cell.addEventListener("click", () => {
+        cell.classList.toggle("marked");
+      });
+
+      bingoCard.appendChild(cell);
+    }
+
+  }
+
+
+  generateBtn.addEventListener("click", generateBingoCard);
+
+  generateBingoCard();
+
+
+  randomPickBtn.addEventListener("click", () => {
+
+    const cells = document.querySelectorAll(".bingo-cell:not(.marked):not(.free)");
+
+    if (cells.length === 0){
+
+      if(!alreadyAlerted){
+        alert("すべてのマスがチェック済みです！");
+        alreadyAlerted = true;
+      }
+
+      return;
+    }
+
+    document.querySelectorAll(".highlight").forEach(cell=>{
+      cell.classList.remove("highlight");
+    });
+
+    const randomCell = cells[Math.floor(Math.random() * cells.length)];
+
+    randomCell.classList.add("highlight");
+
   });
 
-})};
+};
