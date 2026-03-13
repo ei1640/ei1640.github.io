@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>スマブラSP キャラビンゴ（選択式）</title>
+
+<link rel="stylesheet" href="smash-select.css">
+
+</head>
+<body>
+
+<div id="container">
+
+<h1>スマブラSP キャラビンゴ</h1>
+
+サイズ
+<select id="size">
+<option value="3">3×3</option>
+<option value="5" selected>5×5</option>
+<option value="7">7×7</option>
+</select>
+
+<div class="controls">
+<button id="generate-btn">ビンゴ生成</button>
+<button id="random-btn">ランダム1マス</button>
+<button id="check-all">全チェック</button>
+<button id="uncheck-all">全解除</button>
+</div>
+
+<details>
+  <summary>通常キャラ</summary>
+  <div id="base-list" class="char-list"></div>
+</details>
+
+<details>
+  <summary>DLCキャラ</summary>
+  <div id="dlc-list" class="char-list"></div>
+</details>
+
+<div id="bingo-card" class="bingo-grid"></div>
+
+</div>
+
+<!-- データ -->
+<script src="characters.js"></script>
+
+<!-- 共通エンジン -->
+<script src="bingo-engine.js"></script>
+
+<!-- スマブラ用 -->
+<script src="smash-select.js"></script>
+
+</body>
+</html>

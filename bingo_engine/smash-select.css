@@ -1,0 +1,118 @@
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#1b1b2f,#162447,#1f4068);
+  color:white;
+  text-align:center;
+}
+
+#container{
+  width:min(95vw,900px);
+  margin:auto;
+  padding:10px;
+}
+
+.controls{ margin:10px 0; }
+
+button{
+  margin:5px;
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+#character-list{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:4px;
+  background:rgba(255,255,255,0.1);
+  padding:8px;
+  border-radius:8px;
+  max-height:260px;
+  overflow:auto;
+}
+
+.bingo-grid{
+  margin:15px auto;
+  display:grid;
+  gap:4px;
+  max-width:90vmin;
+}
+
+.bingo-cell{
+  background:white;
+  color:black;
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  border-radius:6px;
+  font-size:clamp(10px,1.8vw,18px);
+}
+
+.free{ background:#ffcc00; }
+
+.highlight{
+  border:3px solid red;
+}
+
+.char-list{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:4px;
+  background:rgba(255,255,255,0.1);
+  padding:8px;
+  border-radius:8px;
+  max-height:220px;
+  overflow:auto;
+  margin-bottom:12px;
+}
+
+label{
+  white-space:nowrap;
+}
+
+details{
+  margin:10px 0;
+  background:rgba(255,255,255,0.1);
+  padding:8px;
+  border-radius:8px;
+}
+
+summary{
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+/* ⭐ 3列配置 */
+.char-list{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:6px 12px;
+
+  max-height:320px;
+  overflow:auto;
+}
+
+/* ⭐ チェック位置を揃える */
+.char-list label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  white-space:nowrap;
+}
+
+/* チェックボックス固定 */
+.char-list input{
+  flex-shrink:0;
+}
+
+summary::marker{
+  color:#ffcc00;
+}
