@@ -1,7 +1,7 @@
 body{
   margin:0;
   font-family:sans-serif;
-  background:linear-gradient(135deg,#1b1b2f,#162447,#1f4068);
+  background:linear-gradient(135deg,#2f1b1b,#471616,#681f1f);
   color:white;
   text-align:center;
 }
@@ -27,7 +27,7 @@ button{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:4px;
-  background:rgba(255,255,255,0.1);
+  background:rgba(255, 255, 255, 0.1);
   padding:8px;
   border-radius:8px;
   max-height:260px;
@@ -54,14 +54,14 @@ button{
 }
 
 .bingo-cell.marked{
-  background:#4caf50;
+  background:#af4c98;
   color:white;
 }
 
 .free{ background:#ffcc00; }
 
 .highlight{
-  border:3px solid red;
+  border:3px solid rgb(0, 17, 255);
 }
 
 .char-list{
