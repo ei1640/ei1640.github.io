@@ -92,7 +92,10 @@ summary{
 /* ⭐ 3列配置 */
 .char-list{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(160px, 1fr));
+
   gap:6px 12px;
 
   max-height:320px;
@@ -104,7 +107,6 @@ summary{
   display:flex;
   align-items:center;
   gap:8px;
-
   white-space:nowrap;
 }
 
