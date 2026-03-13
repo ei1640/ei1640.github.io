@@ -53,6 +53,11 @@ button{
   font-size:clamp(10px,1.8vw,18px);
 }
 
+.bingo-cell.marked{
+  background:#4caf50;
+  color:white;
+}
+
 .free{ background:#ffcc00; }
 
 .highlight{
