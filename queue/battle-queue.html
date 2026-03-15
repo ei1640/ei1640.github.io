@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>スマブラ勝ち残り管理</title>
+
+<style>
+
+body{
+    background:#0a0a0a;
+    color:white;
+    font-family:"Arial Black",Impact,sans-serif;
+    text-align:center;
+}
+
+h2{
+    font-size:40px;
+    text-shadow:0 0 15px red;
+}
+
+ul{
+    list-style:none;
+    padding:0;
+    max-width:560px;
+    margin:auto;
+}
+
+li{
+    background:linear-gradient(145deg,#1a1a1a,#111);
+    border-left:6px solid red;
+    padding:12px;
+    margin:8px 0;
+    border-radius:6px;
+    box-shadow:0 0 10px rgba(255,0,0,0.3);
+    font-size:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+li:first-child{
+    border-left:6px solid gold;
+    box-shadow:0 0 15px gold;
+}
+
+/* ボタン */
+
+button{
+    background:red;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    font-size:16px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:6px;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#ff3333;
+    transform:scale(1.05);
+    box-shadow:0 0 10px red;
+}
+
+.win{ background:#ff9900; }
+.lose{ background:#555; }
+
+input[type="text"]{
+    padding:10px;
+    background:#222;
+    border:none;
+    color:white;
+    border-radius:4px;
+}
+
+/* 周回チェック */
+
+.repeatBox{
+    font-size:14px;
+    margin-left:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>🔥 勝ち残り順番 🔥</h2>
+
+<ul id="queue"></ul>
+
+<br>
+
+<input id="name" placeholder="名前">
+<label>
+<input type="checkbox" id="repeat"> 配信終了まで参加
+</label>
+
+<br><br>
+
+<button onclick="add()">追加</button>
+
+<script>
+
+let queue=[]
+
+function update(){
+
+    const ul=document.getElementById("queue")
+    ul.innerHTML=""
+
+    queue.forEach((p,i)=>{
+
+        const li=document.createElement("li")
+
+        // 名前表示
+        const name=document.createElement("span")
+        name.textContent=(i+1)+". "+p.name
+
+        li.appendChild(name)
+
+        // 右側UI
+        const right=document.createElement("div")
+
+        // 周回チェック（全員に表示）
+        const repeatLabel=document.createElement("label")
+        repeatLabel.className="repeatBox"
+
+        const repeatBox=document.createElement("input")
+        repeatBox.type="checkbox"
+        repeatBox.checked=p.repeat
+
+        // ← ここが新機能
+        repeatBox.onchange=()=>{
+            p.repeat = repeatBox.checked
+        }
+
+        repeatLabel.append(repeatBox," 周回")
+        right.appendChild(repeatLabel)
+
+        // 1位のみ勝敗ボタン
+        if(i===0 && queue.length>=2){
+
+            const winBtn=document.createElement("button")
+            winBtn.textContent="勝ち"
+            winBtn.className="win"
+            winBtn.onclick=win
+
+            const loseBtn=document.createElement("button")
+            loseBtn.textContent="負け"
+            loseBtn.className="lose"
+            loseBtn.onclick=lose
+
+            right.append(winBtn,loseBtn)
+        }
+
+        li.appendChild(right)
+        ul.appendChild(li)
+    })
+}
+
+function add(){
+
+    const name=document.getElementById("name").value
+    const repeat=document.getElementById("repeat").checked
+
+    if(!name) return
+
+    queue.push({name,repeat})
+    document.getElementById("name").value=""
+    update()
+}
+
+//////////////////////////
+// 🏆 王者が勝つ
+//////////////////////////
+
+function win(){
+
+    if(queue.length<2) return
+
+    const challenger = queue.splice(1,1)[0]
+
+    if(challenger.repeat){
+        queue.push(challenger)
+    }
+
+    update()
+}
+
+//////////////////////////
+// 💀 王者が負ける
+//////////////////////////
+
+function lose(){
+
+    if(queue.length<2) return
+
+    const champion = queue.shift()
+
+    if(champion.repeat){
+        queue.push(champion)
+    }
+
+    update()
+}
+
+update()
+
+</script>
+
+</body>
+</html>
