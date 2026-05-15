@@ -34,6 +34,8 @@ let lastTime = performance.now();
 let countdown = 3;
 let countdownTimer = 3;
 
+let checkpointInterval = 0.8;
+
 let endlessRanking =
   JSON.parse(localStorage.getItem("endlessRanking")) || [];
 
@@ -593,8 +595,26 @@ function update(deltaTime) {
 
     if (gameMode === "checkpoint") {
 
-      // 固定速度
-      interval = 0.8;
+      // ====================
+      // スコア連動で難易度上昇
+      // ====================
+
+      const difficultyStep = Math.floor(clearedCheckpoints / 5);
+
+      checkpointInterval =
+        0.8 - difficultyStep * 0.1;
+
+      // 下限（これ超えるとゲームにならない）
+      checkpointInterval = Math.max(0.2, checkpointInterval);
+
+      interval = checkpointInterval;
+
+      // タイマー減少
+      checkpointTimer -= deltaTime;
+
+      if (checkpointTimer <= 0) {
+        triggerGameOver();
+      }
 
       checkpointTimer -= deltaTime;
 
@@ -1122,6 +1142,7 @@ function draw() {
         canvas.height / 2 + 80 + i * 30
       );
     }
+
   }
 
   // タイトルへ戻る
